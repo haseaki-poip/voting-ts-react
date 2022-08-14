@@ -1,8 +1,17 @@
+import { useNavigate } from "react-router-dom";
+
 function Card() {
+  const navigate = useNavigate();
+  const showQuestion = () => {
+    navigate("/result", { state: { id: "6nJ3StvjnCTNq2H4LAzj" } });
+  };
   return (
     <div className="back-gradation-for-detail">
       <div className="grid md:grid-cols-4 grid-cols-1 place-items-center justify-items-center gap-5 md:px-20 px-5 py-10">
-        <div className="bg-white text-center shadow-2xl rounded-md">
+        <div
+          onClick={showQuestion}
+          className="bg-white text-center shadow-2xl rounded-md"
+        >
           <div className="px-6 py-4">
             <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
             <p className="text-gray-700 text-base">
