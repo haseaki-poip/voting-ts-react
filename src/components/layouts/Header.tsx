@@ -46,16 +46,22 @@ function Header() {
         >
           <div className="text-sm lg:flex-grow">
             <a
-              href="#responsive-header"
+              href="/"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
               home
             </a>
             <a
-              href="#responsive-header"
+              href="/create"
               className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
             >
-              list
+              create
+            </a>
+            <a
+              href="/search"
+              className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+            >
+              search
             </a>
           </div>
         </div>
