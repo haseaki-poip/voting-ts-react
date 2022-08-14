@@ -3,6 +3,7 @@ import {
   where,
   collection,
   getDocs,
+  getDoc,
   addDoc,
   setDoc,
   doc,
@@ -23,4 +24,27 @@ export const createQuestion = async (
   });
 
   return wn.id;
+};
+
+type QuestionType = {
+  content: string;
+  choices: string[];
+  results: Number[];
+};
+// idからアンケート取得
+export const getQuestion = async (
+  questionId: string
+): Promise<QuestionType | null> => {
+  const snapshot = await getDoc(doc(db, "questionnaires", questionId));
+  const exist = snapshot.exists();
+  if (exist) {
+    const data = snapshot.data();
+    return {
+      content: data.content,
+      choices: data.choices,
+      results: data.results,
+    };
+  } else {
+    return null;
+  }
 };

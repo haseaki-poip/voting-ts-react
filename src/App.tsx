@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Header from "./components/layouts/Header";
 import Search from "./components/Search";
 import Create from "./components/Create";
+import Result from "./components/Result";
 function App() {
   return (
     <div className="App">
@@ -11,11 +12,13 @@ function App() {
         <Routes>
           <Route path="/search" element={<Header />} />
           <Route path="/create" element={<Header />} />
+          <Route path="/result" element={<Header />} />
         </Routes>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
           <Route path="/create" element={<Create />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
       </BrowserRouter>
     </div>

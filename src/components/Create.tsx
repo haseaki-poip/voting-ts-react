@@ -2,6 +2,7 @@ import { useState, createContext } from "react";
 import Content from "./forms/Content";
 import Choices from "./forms/Choices";
 import { createQuestion } from "../lib/firestore";
+import { useNavigate } from "react-router-dom";
 
 //createContextのための型宣言
 type ContentContextType = {
@@ -27,13 +28,14 @@ function Create() {
   const [choices, setChoices] = useState<string[]>(["", "", "", "", ""]);
   const contentValue = { content, setContent }; // context用
   const choicesValue = { choices, setChoices }; // context用
+  const navigate = useNavigate();
 
   // createボタンが押された時
   const handleButton = () => {
     const create = () => {
       createQuestion(content, choiceList, resultNums)
         .then((questionId) => {
-          console.log(questionId);
+          navigate("/result", { state: { id: questionId } });
         })
         .catch((e) => {
           alert("保存できませんでした");
