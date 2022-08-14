@@ -1,6 +1,7 @@
 import { useState, createContext } from "react";
 import Content from "./forms/Content";
 import Choices from "./forms/Choices";
+import { createQuestion } from "../lib/firestore";
 
 //createContextのための型宣言
 type ContentContextType = {
@@ -29,6 +30,16 @@ function Create() {
 
   // createボタンが押された時
   const handleButton = () => {
+    const create = () => {
+      createQuestion(content, choiceList, resultNums)
+        .then((questionId) => {
+          console.log(questionId);
+        })
+        .catch((e) => {
+          alert("保存できませんでした");
+        });
+    };
+
     // 空欄の要素を削除
     const choiceList = choices.filter((choice) => {
       return choice.replace(/\s+/g, "") !== ""; //スペースのみ対策
@@ -36,8 +47,8 @@ function Create() {
     //　選択肢の数だけ0の配列を作る
     const resultNums = [...Array(choiceList.length)].map(() => 0);
 
-    if (resultNums.length !== 0) {
-      console.log("保存処理");
+    if (resultNums.length !== 0 && content.replace(/\s+/g, "") !== "") {
+      create();
     }
   };
 

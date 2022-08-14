@@ -66,6 +66,7 @@ function Choices() {
               type="text"
               className="h-10 px-3 w-full border-2 border-teal-400 rounded focus:outline-none focus:border-teal-500"
               placeholder={"選択肢" + String(index + 1)}
+              autoComplete="off"
             />
           </div>
         ))}

@@ -14,6 +14,7 @@ function Content() {
         typeof="text"
         className="h-20 py-1 px-3 w-full border-2 border-teal-400 rounded focus:outline-none focus:border-teal-500 resize-none"
         onChange={(e) => contentChange(e)}
+        autoComplete="off"
       ></textarea>
     </div>
   );
