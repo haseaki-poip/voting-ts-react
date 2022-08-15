@@ -37,7 +37,7 @@ function ChartGraph(prop: Props) {
   };
 
   return (
-    <div className="w-full sm:w-2/5">
+    <div className="w-full sm:w-1/3">
       <Pie data={data} />
     </div>
   );

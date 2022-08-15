@@ -13,7 +13,7 @@ type ToggleContextType = {
 };
 type SelectContextType = {
   selectIndex: number | null;
-  setSelectIndex: (selectIndex: number) => void;
+  setSelectIndex: (selectIndex: number | null) => void;
 };
 
 export const ToggleContext = createContext<ToggleContextType>({
@@ -85,13 +85,13 @@ function Result() {
   }, [toggle]);
 
   return (
-    <div className="pt-10">
+    <div className="pt-4">
       <div className="flex justify-center sm:float-left sm:ml-10">
         <ToggleContext.Provider value={toggleValue}>
           <Toggle />
         </ToggleContext.Provider>
       </div>
-      <div className="mt-10 flex justify-center">{graph}</div>
+      <div className="mt-6 sm:mt-14 flex justify-center">{graph}</div>
       <SelectContext.Provider value={selectValue}>
         <Vote questionProp={question} />
       </SelectContext.Provider>
