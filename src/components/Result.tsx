@@ -65,24 +65,19 @@ function Result() {
           error("アンケートが存在しませんでした。");
         } else {
           setQuestion(question);
-          setGraph(<BarGraph questionProp={question} />);
+          setGraph(
+            toggle ? (
+              <BarGraph questionProp={question} />
+            ) : (
+              <ChartGraph questionProp={question} />
+            )
+          );
         }
       })
       .catch((e) => {
         error("予期せぬエラー");
       });
-  }, [selectIndex]);
-
-  useEffect(() => {
-    // toggleによってグラフを変更
-    setGraph(
-      toggle ? (
-        <BarGraph questionProp={question} />
-      ) : (
-        <ChartGraph questionProp={question} />
-      )
-    );
-  }, [toggle]);
+  }, [selectIndex, toggle]);
 
   return (
     <div className="pt-4">
