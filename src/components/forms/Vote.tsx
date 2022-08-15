@@ -1,18 +1,27 @@
-import { MouseEvent, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { SelectContext } from "../Result";
 import type { QuestionType } from "../../lib/firestore";
+import { voteUpdate } from "../../lib/firestore";
 type Prop = {
   questionProp: QuestionType;
 };
 
 function Vote(prop: Prop) {
   const choices = prop.questionProp.choices;
-  const navigate = useNavigate();
+  const results = prop.questionProp.results;
+  const id = prop.questionProp.id;
   const { selectIndex, setSelectIndex } = useContext(SelectContext);
 
   const vote = (index: number) => {
-    setSelectIndex(index);
+    let resultsCopy = [...results];
+    resultsCopy[index] += 1;
+    voteUpdate(id, resultsCopy)
+      .then(() => {
+        setSelectIndex(index);
+      })
+      .catch((e) => {
+        alert("投票できませんでした");
+      });
   };
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">
@@ -28,6 +37,7 @@ function Vote(prop: Prop) {
                   (index === selectIndex
                     ? " bg-teal-400 hover:bg-teal-500 active:bg-teal-400 text-white"
                     : " bg-white hover:bg-gray-100 active:bg-gray-200 text-gray-800")
+                  // ^ ボタン選択時そのボタンの色を変更
                 }
               >
                 {choice}

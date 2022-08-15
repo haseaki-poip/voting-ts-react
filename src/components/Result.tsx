@@ -48,7 +48,6 @@ function Result() {
 
   //レンダリング時
   useEffect(() => {
-    console.log("a");
     const error = (message: string) => {
       alert(message);
       navigate("/search");

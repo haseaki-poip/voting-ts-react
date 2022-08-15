@@ -1,16 +1,12 @@
 import {
-  query,
-  where,
   collection,
   getDocs,
   getDoc,
   addDoc,
   setDoc,
   doc,
-  deleteDoc,
   serverTimestamp,
 } from "firebase/firestore/lite";
-import firebase from "firebase/app";
 import { db } from "../firebase";
 
 export type QuestionType = {
@@ -57,6 +53,7 @@ export const getQuestion = async (
   }
 };
 
+// 全てのアンケート取得
 export const getAllQuestion = async (): Promise<QuestionType[]> => {
   const docSnap = await getDocs(collection(db, "questionnaires"));
 
@@ -73,4 +70,15 @@ export const getAllQuestion = async (): Promise<QuestionType[]> => {
   });
 
   return questionList;
+};
+
+// 投票
+export const voteUpdate = async (questionId: string, results: number[]) => {
+  await setDoc(
+    doc(db, "questionnaires", questionId),
+    {
+      results: results,
+    },
+    { merge: true } // merge: trueで一部のみ更新
+  );
 };
