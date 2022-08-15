@@ -1,92 +1,47 @@
 import { useNavigate } from "react-router-dom";
+import type { QuestionType } from "../../lib/firestore";
 
-function Card() {
+type Props = {
+  questionProp: QuestionType;
+};
+function Card(props: Props) {
+  const id = props.questionProp.id;
+  const content = props.questionProp.content;
+  const choices = props.questionProp.choices;
+  const date = props.questionProp.date;
+  // 日にちを00/00/00の形に
+  const dateString =
+    String(date.getFullYear()) +
+    "/" +
+    String(date.getMonth() + 1) +
+    "/" +
+    String(date.getDate());
+  const totalVote = props.questionProp.results.reduce((a, b) => a + b);
   const navigate = useNavigate();
+
   const showQuestion = () => {
-    navigate("/result", { state: { id: "6nJ3StvjnCTNq2H4LAzj" } });
+    navigate("/result", { state: { id: id } });
   };
   return (
-    <div className="back-gradation-for-detail">
-      <div className="grid md:grid-cols-4 grid-cols-1 place-items-center justify-items-center gap-5 md:px-20 px-5 py-10">
-        <div
-          onClick={showQuestion}
-          className="bg-white text-center shadow-2xl rounded-md"
-        >
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
-        <div className="bg-white text-center shadow-2xl rounded-md">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
-        <div className="bg-white text-center shadow-2xl rounded-md">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
-        <div className="bg-white text-center shadow-2xl rounded-md">
-          <div className="px-6 py-4">
-            <div className="font-bold text-xl mb-2">The Coldest Sunset</div>
-            <p className="text-gray-700 text-base">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-            </p>
-          </div>
-          <div className="px-6 pt-4 pb-2">
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #photography
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #travel
-            </span>
-            <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-              #winter
-            </span>
-          </div>
-        </div>
+    <div
+      onClick={showQuestion}
+      className="bg-white text-center shadow-2xl rounded-md cursor-pointer"
+    >
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{content}</div>
+        <ul className="text-gray-700 text-base">
+          {choices.map((choice, index) => {
+            return <li key={index}>・{choice}</li>;
+          })}
+        </ul>
+      </div>
+      <div className="px-6 pt-4 pb-2">
+        <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          {dateString}
+        </span>
+        <span className="inline-block bg-gray-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          投票数{totalVote}
+        </span>
       </div>
     </div>
   );

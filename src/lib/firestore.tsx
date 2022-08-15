@@ -8,29 +8,35 @@ import {
   setDoc,
   doc,
   deleteDoc,
+  serverTimestamp,
 } from "firebase/firestore/lite";
+import firebase from "firebase/app";
 import { db } from "../firebase";
+
+export type QuestionType = {
+  id: string;
+  content: string;
+  choices: string[];
+  results: number[];
+  date: Date;
+};
 
 // アンケート作成
 export const createQuestion = async (
   content: string,
   choiceList: string[],
-  resultNums: Number[]
+  resultNums: number[]
 ): Promise<string> => {
   const wn = await addDoc(collection(db, "questionnaires"), {
     content: content,
     choices: choiceList,
     results: resultNums,
+    timestamp: serverTimestamp(),
   });
 
   return wn.id;
 };
 
-type QuestionType = {
-  content: string;
-  choices: string[];
-  results: Number[];
-};
 // idからアンケート取得
 export const getQuestion = async (
   questionId: string
@@ -40,11 +46,31 @@ export const getQuestion = async (
   if (exist) {
     const data = snapshot.data();
     return {
+      id: snapshot.id,
       content: data.content,
       choices: data.choices,
       results: data.results,
+      date: data.timestamp.toDate(),
     };
   } else {
     return null;
   }
+};
+
+export const getAllQuestion = async (): Promise<QuestionType[]> => {
+  const docSnap = await getDocs(collection(db, "questionnaires"));
+
+  const questionList: QuestionType[] = [];
+  docSnap.forEach((doc) => {
+    const question: QuestionType = {
+      id: doc.id,
+      content: doc.data().content,
+      choices: doc.data().choices,
+      results: doc.data().results,
+      date: doc.data().timestamp.toDate(),
+    };
+    questionList.push(question);
+  });
+
+  return questionList;
 };

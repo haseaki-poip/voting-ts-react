@@ -5,19 +5,17 @@ import {
   BarElement,
   Title,
   Tooltip,
-  Legend,
 } from "chart.js";
-import { useEffect } from "react";
 import { Bar } from "react-chartjs-2";
-import type { QuestionType } from "../../components/Result";
+import type { QuestionType } from "../../lib/firestore";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip);
 
-type Props = {
+type Prop = {
   questionProp: QuestionType;
 };
 
-function BarGraph(prop: Props) {
+function BarGraph(prop: Prop) {
   const options = {
     responsive: true,
     plugins: {

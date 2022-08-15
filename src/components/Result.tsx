@@ -1,35 +1,44 @@
 import BarGraph from "./Graphs/BarGraph";
 import ChartGraph from "./Graphs/ChartGraph";
 import Toggle from "./layouts/Toggle";
+import Vote from "./forms/Vote";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
 import { getQuestion } from "../lib/firestore";
-
-export type QuestionType = {
-  content: string;
-  choices: string[];
-  results: Number[];
-};
+import type { QuestionType } from "../lib/firestore";
 
 type ToggleContextType = {
   toggle: boolean;
   setToggle: (toggle: boolean) => void;
+};
+type SelectContextType = {
+  selectIndex: number | null;
+  setSelectIndex: (selectIndex: number) => void;
 };
 
 export const ToggleContext = createContext<ToggleContextType>({
   toggle: true,
   setToggle: (toggle) => {},
 });
+export const SelectContext = createContext<SelectContextType>({
+  selectIndex: null,
+  setSelectIndex: (selectIndex) => {},
+});
 
 function Result() {
   const [toggle, setToggle] = useState<boolean>(true);
+  const [selectIndex, setSelectIndex] = useState<number | null>(null);
   const toggleValue = { toggle, setToggle }; // context用
+  const selectValue = { selectIndex, setSelectIndex }; // context用
+
   const navigate = useNavigate();
   const location = useLocation();
   const [question, setQuestion] = useState<QuestionType>({
+    id: "",
     content: "",
     choices: [],
     results: [],
+    date: new Date(),
   });
 
   const [graph, setGraph] = useState<JSX.Element>();
@@ -39,6 +48,7 @@ function Result() {
 
   //レンダリング時
   useEffect(() => {
+    console.log("a");
     const error = (message: string) => {
       alert(message);
       navigate("/search");
@@ -62,7 +72,7 @@ function Result() {
       .catch((e) => {
         error("予期せぬエラー");
       });
-  }, []);
+  }, [selectIndex]);
 
   useEffect(() => {
     // toggleによってグラフを変更
@@ -83,6 +93,9 @@ function Result() {
         </ToggleContext.Provider>
       </div>
       <div className="mt-10 flex justify-center">{graph}</div>
+      <SelectContext.Provider value={selectValue}>
+        <Vote questionProp={question} />
+      </SelectContext.Provider>
     </div>
   );
 }

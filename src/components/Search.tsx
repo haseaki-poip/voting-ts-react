@@ -1,10 +1,10 @@
 import Banner from "./layouts/Banner";
-import Card from "./list/Card";
+import Cards from "./list/Cards";
 function Search() {
   return (
     <div>
       <Banner />
-      <Card />
+      <Cards />
     </div>
   );
 }

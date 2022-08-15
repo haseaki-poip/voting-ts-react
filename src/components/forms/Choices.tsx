@@ -41,7 +41,7 @@ function Choices() {
   };
 
   const choiceChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const changeIndex: Number = Number(e.target.name);
+    const changeIndex: number = Number(e.target.name);
     const inputValue: string = e.target.value;
     setChoices(
       choices.map((choice, index) =>
