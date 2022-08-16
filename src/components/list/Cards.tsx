@@ -17,7 +17,7 @@ function Cards() {
 
   return (
     <div className="back-gradation-for-detail">
-      <div className="grid md:grid-cols-4 grid-cols-1 place-items-center justify-items-center gap-5 md:px-20 px-5 py-10">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 grid-cols-1 place-items-center justify-items-center gap-5 md:px-20 px-5 py-10">
         {allQuestion.map((question, index) => {
           return <Card key={index} questionProp={question} />;
         })}

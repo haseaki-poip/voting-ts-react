@@ -25,7 +25,7 @@ function Card(props: Props) {
   return (
     <div
       onClick={showQuestion}
-      className="bg-white text-center shadow-2xl rounded-md cursor-pointer"
+      className="bg-white text-center shadow-2xl rounded-md cursor-pointer w-64 h-72"
     >
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{content}</div>
