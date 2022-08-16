@@ -26,15 +26,14 @@ function Vote(prop: Prop) {
     let resultsCopy = [...results];
     resultsCopy[index] += 1;
 
+    let i = index;
     if (index === selectIndex) {
       resultsCopy[selectIndex] -= 2;
-      update(-1);
+      i = -1;
     } else if (selectIndex !== null) {
       resultsCopy[selectIndex] -= 1;
-      update(index);
-    } else {
-      update(index);
     }
+    update(i);
   };
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">

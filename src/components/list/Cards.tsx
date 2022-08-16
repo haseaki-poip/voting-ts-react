@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getAllQuestion } from "../../lib/firestore";
-import type { QuestionType } from "../../lib/firestore";
+import type { QuestionType } from "../../lib/realtimeDB";
+import { getAllQuestion } from "../../lib/realtimeDB";
 import Card from "./Card";
 
 function Cards() {
