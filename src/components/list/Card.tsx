@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import type { QuestionType } from "../../lib/firestore";
+import type { QuestionType } from "../../lib/realtimeDB";
 
 type Props = {
   questionProp: QuestionType;

@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import BarImg from "../../assets/Images/BarImg.png";
 import ChartImg from "../../assets/Images/ChartImg.png";
 import { ToggleContext } from "../../components/Result";

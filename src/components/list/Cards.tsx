@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import type { QuestionType } from "../../lib/realtimeDB";
 import { getAllQuestion } from "../../lib/realtimeDB";
-
 import Card from "./Card";
 
 function Cards() {
   const [allQuestion, setAllQuestion] = useState<QuestionType[]>([]);
-
   useEffect(() => {
     getAllQuestion()
       .then((allQuestion) => {

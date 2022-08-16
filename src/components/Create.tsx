@@ -1,7 +1,7 @@
 import { useState, createContext } from "react";
 import Content from "./forms/Content";
 import Choices from "./forms/Choices";
-import { createQuestion } from "../lib/firestore";
+import { createQuestion } from "../lib/realtimeDB";
 import { useNavigate } from "react-router-dom";
 
 //createContextのための型宣言
@@ -35,6 +35,7 @@ function Create() {
     const create = () => {
       createQuestion(content, choiceList, resultNums)
         .then((questionId) => {
+          console.log(questionId);
           navigate("/result", { state: { id: questionId } });
         })
         .catch((e) => {

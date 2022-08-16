@@ -4,8 +4,9 @@ import Toggle from "./layouts/Toggle";
 import Vote from "./forms/Vote";
 import { useLocation, useNavigate } from "react-router-dom";
 import { createContext, useEffect, useState } from "react";
-import { getQuestion } from "../lib/firestore";
-import type { QuestionType } from "../lib/firestore";
+import { getQuestion } from "../lib/realtimeDB";
+import { rt_db } from "../firebase";
+import { ref, onValue } from "firebase/database";
 
 type ToggleContextType = {
   toggle: boolean;
@@ -33,50 +34,68 @@ function Result() {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [question, setQuestion] = useState<QuestionType>({
-    id: "",
-    content: "",
-    choices: [],
-    results: [],
-    date: new Date(),
-  });
 
   const [graph, setGraph] = useState<JSX.Element>();
+  const [vote, setVote] = useState<JSX.Element>();
 
   // navigateによる遷移時の引数を取得
-  const [idObject] = useState<{ id: string }>(location.state as { id: string });
+  const [idObj] = useState<{ id: string | null }>(
+    location.state as { id: string | null }
+  );
+
+  const error = (message: string) => {
+    alert(message);
+    navigate("/search");
+  };
+
+  //初期レンダリングとrealtimeDB発火時でのUI更新
+  const upDateResult = (idObject: { id: string | null }) => {
+    // idがなければsearchページに遷移
+    if (idObject.id === null) {
+      error("アンケートを選択してください");
+    } else {
+      const id = idObject.id;
+
+      getQuestion(id) // idからアンケートを取得
+        .then((question) => {
+          if (!question) {
+            error("アンケートが存在しませんでした。");
+          } else {
+            const questionValue = {
+              id: id,
+              content: question.content,
+              choices: question.choices,
+              results: question.results,
+              date: question.date,
+            };
+            setVote(<Vote questionProp={questionValue} />);
+            setGraph(
+              toggle ? (
+                <BarGraph questionProp={questionValue} />
+              ) : (
+                <ChartGraph questionProp={questionValue} />
+              )
+            );
+          }
+        })
+        .catch((e) => {
+          error("予期せぬエラー");
+        });
+    }
+  };
 
   //レンダリング時
   useEffect(() => {
-    const error = (message: string) => {
-      alert(message);
-      navigate("/search");
-    };
+    const starCountRef = ref(
+      rt_db,
+      "questionnaires/-N9ZVQ0mwaJiIW4buYzK/results"
+    );
+    // データ更新時にリアルタイムで発火
+    onValue(starCountRef, (snapshot) => {
+      upDateResult(idObj);
+    });
 
-    // idがなければsearchページに遷移
-    if (!idObject) {
-      error("アンケートを選択してください");
-    }
-
-    // idからアンケートを取得
-    getQuestion(idObject.id)
-      .then((question) => {
-        if (!question) {
-          error("アンケートが存在しませんでした。");
-        } else {
-          setQuestion(question);
-          setGraph(
-            toggle ? (
-              <BarGraph questionProp={question} />
-            ) : (
-              <ChartGraph questionProp={question} />
-            )
-          );
-        }
-      })
-      .catch((e) => {
-        error("予期せぬエラー");
-      });
+    upDateResult(idObj);
   }, [selectIndex, toggle]);
 
   return (
@@ -88,7 +107,7 @@ function Result() {
       </div>
       <div className="mt-6 sm:mt-14 flex justify-center">{graph}</div>
       <SelectContext.Provider value={selectValue}>
-        <Vote questionProp={question} />
+        {vote}
       </SelectContext.Provider>
     </div>
   );

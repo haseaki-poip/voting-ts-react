@@ -1,7 +1,7 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { SelectContext } from "../Result";
-import type { QuestionType } from "../../lib/firestore";
-import { voteUpdate } from "../../lib/firestore";
+import type { QuestionType } from "../../lib/realtimeDB";
+import { voteUpdate } from "../../lib/realtimeDB";
 type Prop = {
   questionProp: QuestionType;
 };
@@ -11,8 +11,8 @@ function Vote(prop: Prop) {
   const content = prop.questionProp.content;
   const results = prop.questionProp.results;
   const id = prop.questionProp.id;
-  const { selectIndex, setSelectIndex } = useContext(SelectContext);
 
+  const { selectIndex, setSelectIndex } = useContext(SelectContext);
   const vote = (index: number) => {
     const update = (i: number | null) => {
       voteUpdate(id, resultsCopy)
