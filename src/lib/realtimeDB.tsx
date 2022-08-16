@@ -1,4 +1,12 @@
-import { getDatabase, ref, onValue, set, push } from "firebase/database";
+import {
+  getDatabase,
+  ref,
+  onValue,
+  set,
+  push,
+  get,
+  child,
+} from "firebase/database";
 import { rt_db } from "../firebase";
 
 export type QuestionType = {
@@ -39,23 +47,41 @@ export const writeUserData = () => {
 
 // 全てのアンケート取得
 export const getAllQuestion = async (): Promise<QuestionType[]> => {
-  const starCountRef = ref(rt_db, "questionnaires");
-
+  const dbRef = ref(rt_db);
+  const snapshot = await get(child(dbRef, "questionnaires"));
   const questionList: QuestionType[] = [];
-  onValue(starCountRef, (snapshot) => {
-    const allData = snapshot.val();
+  const allData = snapshot.val();
 
-    Object.keys(allData).forEach((key) => {
-      const data = allData[key];
-      const question: QuestionType = {
-        id: key,
-        content: data.content,
-        choices: data.choices,
-        results: data.results,
-        date: new Date(data.date),
-      };
-      questionList.push(question);
-    });
+  Object.keys(allData).forEach((key) => {
+    const data = allData[key];
+    const question: QuestionType = {
+      id: key,
+      content: data.content,
+      choices: data.choices,
+      results: data.results,
+      date: new Date(data.date),
+    };
+    questionList.push(question);
   });
+
   return questionList;
+
+  //   const starCountRef = ref(rt_db, "questionnaires");
+  //   onValue(starCountRef, (snapshot) => {
+  //   const questionList: QuestionType[] = [];
+  //     const allData = snapshot.val();
+
+  //     Object.keys(allData).forEach((key) => {
+  //       const data = allData[key];
+  //       const question: QuestionType = {
+  //         id: key,
+  //         content: data.content,
+  //         choices: data.choices,
+  //         results: data.results,
+  //         date: new Date(data.date),
+  //       };
+  //       questionList.push(question);
+  //     });
+  //     return questionList;
+  //   })
 };
