@@ -86,10 +86,7 @@ function Result() {
 
   //レンダリング時
   useEffect(() => {
-    const starCountRef = ref(
-      rt_db,
-      "questionnaires/-N9ZVQ0mwaJiIW4buYzK/results"
-    );
+    const starCountRef = ref(rt_db, "questionnaires/" + idObj.id + "/results");
     // データ更新時にリアルタイムで発火
     onValue(starCountRef, (snapshot) => {
       upDateResult(idObj);
