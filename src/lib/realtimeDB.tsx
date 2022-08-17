@@ -1,13 +1,4 @@
-import {
-  getDatabase,
-  ref,
-  onValue,
-  update,
-  set,
-  push,
-  get,
-  child,
-} from "firebase/database";
+import { ref, update, set, push, get, child } from "firebase/database";
 import { rt_db } from "../firebase";
 
 export type QuestionType = {
@@ -26,15 +17,6 @@ export const getQuestion = async (
   const snapshot = await get(child(dbRef, "questionnaires/" + questionId));
   const question: QuestionType | null = snapshot.val();
   return question;
-  //   const starCountRef = ref(rt_db, "questionnaires/-N9ZWwhoIKQj_hcuaiPe");
-  //   let question: QuestionType | null = null;
-  //   onValue(starCountRef, (snapshot) => {
-  //     question = snapshot.val();
-
-  //     console.log(question);
-  //   });
-  //   console.log(question);
-  //   return question;
 };
 
 // アンケート作成
