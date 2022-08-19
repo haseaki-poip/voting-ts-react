@@ -1,7 +1,7 @@
 function Home() {
   return (
     <div className="App">
-      <div className="h-screen pt-64 md:pt-48 lg:px-16 bg-gradient-to-r from-teal-400 to-blue-500">
+      <div className="h-screen pt-64 md:pt-48 sm:px-16 bg-gradient-to-r from-teal-400 to-blue-500">
         <div className="text-center sm:text-left">
           <h2 className="text-7xl font-extrabold text-white sm:text-6xl md:text-8xl ">
             voting site
@@ -25,12 +25,7 @@ function Home() {
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
+                <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
               </svg>
             </a>
           </div>
