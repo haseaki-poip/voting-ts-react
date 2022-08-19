@@ -4,11 +4,15 @@ import type { QuestionType } from "../../lib/realtimeDB";
 type Props = {
   questionProp: QuestionType;
 };
+
 function Card(props: Props) {
+  const navigate = useNavigate();
+
   const id = props.questionProp.id;
   const content = props.questionProp.content;
   const choices = props.questionProp.choices;
   const date = props.questionProp.date;
+
   // 日にちを00/00/00の形に
   const dateString =
     String(date.getFullYear()) +
@@ -17,11 +21,11 @@ function Card(props: Props) {
     "/" +
     String(date.getDate());
   const totalVote = props.questionProp.results.reduce((a, b) => a + b);
-  const navigate = useNavigate();
 
   const showQuestion = () => {
     navigate("/result", { state: { id: id } });
   };
+
   return (
     <div
       onClick={showQuestion}

@@ -27,22 +27,22 @@ export const SelectContext = createContext<SelectContextType>({
 });
 
 function Result() {
-  const [toggle, setToggle] = useState<boolean>(true);
-  const [selectIndex, setSelectIndex] = useState<number | null>(null);
-  const toggleValue = { toggle, setToggle }; // context用
-  const selectValue = { selectIndex, setSelectIndex }; // context用
-
   const navigate = useNavigate();
   const location = useLocation();
-
-  const [graph, setGraph] = useState<JSX.Element>();
-  const [vote, setVote] = useState<JSX.Element>();
 
   // navigateによる遷移時の引数を取得
   const [idObj] = useState<{ id: string | null }>(
     location.state as { id: string | null }
   );
+  const [toggle, setToggle] = useState<boolean>(true);
+  const [selectIndex, setSelectIndex] = useState<number | null>(null);
+  const [graph, setGraph] = useState<JSX.Element>();
+  const [vote, setVote] = useState<JSX.Element>();
 
+  const toggleValue = { toggle, setToggle }; // context用
+  const selectValue = { selectIndex, setSelectIndex }; // context用
+
+  // エラー時の遷移処理
   const error = (message: string) => {
     alert(message);
     navigate("/search");
@@ -68,6 +68,7 @@ function Result() {
               results: question.results,
               date: question.date,
             };
+
             setVote(<Vote questionProp={questionValue} />);
             setGraph(
               toggle ? (

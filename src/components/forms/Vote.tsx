@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { SelectContext } from "../Result";
 import type { QuestionType } from "../../lib/realtimeDB";
 import { voteUpdate } from "../../lib/realtimeDB";
+
 type Prop = {
   questionProp: QuestionType;
 };
@@ -13,8 +14,11 @@ function Vote(prop: Prop) {
   const id = prop.questionProp.id;
 
   const { selectIndex, setSelectIndex } = useContext(SelectContext);
+
+  // 投票時のボタンクリック処理
   const vote = (index: number) => {
     const update = (i: number | null) => {
+      // データベースの投票結果を更新
       voteUpdate(id, resultsCopy)
         .then(() => {
           setSelectIndex(i);
@@ -23,6 +27,7 @@ function Vote(prop: Prop) {
           alert("投票できませんでした");
         });
     };
+
     let resultsCopy = [...results];
     resultsCopy[index] += 1;
 
@@ -33,8 +38,10 @@ function Vote(prop: Prop) {
     } else if (selectIndex !== null) {
       resultsCopy[selectIndex] -= 1;
     }
+
     update(i);
   };
+
   return (
     <div className="bg-white py-6 sm:py-8 lg:py-12">
       <div className="max-w-screen-2xl px-4 md:px-8 mx-auto">

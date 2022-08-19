@@ -5,6 +5,7 @@ import Card from "./Card";
 
 function Cards() {
   const [allQuestion, setAllQuestion] = useState<QuestionType[]>([]);
+
   useEffect(() => {
     getAllQuestion()
       .then((allQuestion) => {
