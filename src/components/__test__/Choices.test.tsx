@@ -38,4 +38,9 @@ describe("Test Choices Component", () => {
     textbox = screen.getAllByRole("textbox");
     expect(textbox).toHaveLength(1);
   });
+
+  // 入力テキストの表示内容テスト
+  test("confirm inputValue with button", async () => {
+    render(<Choices />);
+  });
 });
