@@ -43,23 +43,22 @@ function Result() {
   const selectValue = { selectIndex, setSelectIndex }; // context用
 
   // エラー時の遷移処理
-  const error = (message: string) => {
-    alert(message);
+  const error = () => {
     navigate("/search");
   };
 
   //初期レンダリングとrealtimeDB発火時でのUI更新
   const upDateResult = (idObject: { id: string | null }) => {
     // idがなければsearchページに遷移
-    if (idObject.id === null) {
-      error("アンケートを選択してください");
+    if (!idObject.id) {
+      error();
     } else {
       const id = idObject.id;
 
       getQuestion(id) // idからアンケートを取得
         .then((question) => {
           if (!question) {
-            error("アンケートが存在しませんでした。");
+            error();
           } else {
             const questionValue = {
               id: id,
@@ -80,20 +79,27 @@ function Result() {
           }
         })
         .catch((e) => {
-          error("予期せぬエラー");
+          error();
         });
     }
   };
 
   //レンダリング時
   useEffect(() => {
-    const starCountRef = ref(rt_db, "questionnaires/" + idObj.id + "/results");
-    // データ更新時にリアルタイムで発火
-    onValue(starCountRef, (snapshot) => {
-      upDateResult(idObj);
-    });
+    if (!idObj) {
+      error();
+    } else {
+      const starCountRef = ref(
+        rt_db,
+        "questionnaires/" + idObj.id + "/results"
+      );
+      // データ更新時にリアルタイムで発火
+      onValue(starCountRef, (snapshot) => {
+        upDateResult(idObj);
+      });
 
-    upDateResult(idObj);
+      upDateResult(idObj);
+    }
   }, [selectIndex, toggle]);
 
   return (
