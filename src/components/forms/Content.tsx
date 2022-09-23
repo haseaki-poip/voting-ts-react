@@ -1,11 +1,11 @@
-import { ChangeEvent, useContext } from "react";
+import { useContext } from "react";
 import { ContentContext } from "../Create";
 
 function Content() {
   const { content, setContent } = useContext(ContentContext);
 
-  const contentChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setContent(e.target.value);
+  const contentChange = (inputContent: string) => {
+    if (inputContent.length < 30) setContent(inputContent);
   };
   return (
     <div className="mb-1">
@@ -13,7 +13,8 @@ function Content() {
       <textarea
         typeof="text"
         className="h-20 py-1 px-3 w-full border-2 border-teal-400 rounded focus:outline-none focus:border-teal-500 resize-none"
-        onChange={(e) => contentChange(e)}
+        value={content}
+        onChange={(e) => contentChange(e.target.value)}
         autoComplete="off"
       ></textarea>
     </div>
