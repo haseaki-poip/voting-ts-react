@@ -39,8 +39,8 @@ function Vote(prop: Prop) {
     if (index === selectIndex) {
       // 前回投票したものと同じものを選択していたら
       // 前回分の投票を無しにするため2を引く
-      // 何も投票していない状態にするためにnullをセット
       resultsCopy[selectIndex] -= 2;
+      // 何も投票していない状態にするためにnullをセット
       // voteUpdateの中でselectIndexにnullが入れられる
       i = null;
     } else if (selectIndex !== null) {
