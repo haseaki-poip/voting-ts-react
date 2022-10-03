@@ -18,6 +18,7 @@ function Vote(prop: Prop) {
   // 投票時のボタンクリック処理
   const vote = (index: number) => {
     const update = (i: number | null) => {
+      console.log(resultsCopy);
       // データベースの投票結果を更新
       voteUpdate(id, resultsCopy)
         .then(() => {
@@ -29,13 +30,23 @@ function Vote(prop: Prop) {
     };
 
     let resultsCopy = [...results];
-    resultsCopy[index] += 1;
+    // ^^^このようにしてresultsの中身をコピーしないとresultsCopyの中身中身を書き換えれない
 
-    let i = index;
+    resultsCopy[index] += 1;
+    // 一旦選択されたものを1プラスする
+    // 投票し直しや、投票取り消し処理の場合は下で行う
+
+    let i: number | null = index;
     if (index === selectIndex) {
+      // 前回投票したものと同じものを選択していたら
+      // 前回分の投票を無しにするため2を引く
+      // 何も投票していない状態にするためにnullをセット
       resultsCopy[selectIndex] -= 2;
-      i = -1;
+      // voteUpdateの中でselectIndexにnullが入れられる
+      i = null;
     } else if (selectIndex !== null) {
+      // すでに投票していて、他のもに投票し直したら
+      // 前回分の投票を無しにするため1を引く
       resultsCopy[selectIndex] -= 1;
     }
 
