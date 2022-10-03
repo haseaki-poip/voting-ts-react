@@ -18,7 +18,6 @@ function Vote(prop: Prop) {
   // 投票時のボタンクリック処理
   const vote = (index: number) => {
     const update = (i: number | null) => {
-      console.log(resultsCopy);
       // データベースの投票結果を更新
       voteUpdate(id, resultsCopy)
         .then(() => {
