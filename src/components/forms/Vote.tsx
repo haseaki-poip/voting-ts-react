@@ -1,13 +1,13 @@
-import { useContext } from "react";
+import { memo, useContext } from "react";
 import { SelectContext } from "../Result";
 import type { QuestionType } from "../../lib/realtimeDB";
 import { voteUpdate } from "../../lib/realtimeDB";
 
-type Prop = {
+type QuestionProps = {
   questionProp: QuestionType;
 };
 
-const Vote = (prop: Prop) => {
+const Vote = memo<QuestionProps>((prop) => {
   const choices = prop.questionProp.choices;
   const content = prop.questionProp.content;
   const results = prop.questionProp.results;
@@ -80,6 +80,6 @@ const Vote = (prop: Prop) => {
       </div>
     </div>
   );
-};
+});
 
 export default Vote;

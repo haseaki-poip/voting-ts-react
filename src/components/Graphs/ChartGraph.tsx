@@ -1,14 +1,15 @@
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+import { memo } from "react";
 import { Pie } from "react-chartjs-2";
 import type { QuestionType } from "../../lib/realtimeDB";
 
-type Props = {
+type QuestionProps = {
   questionProp: QuestionType;
 };
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const ChartGraph = (prop: Props) => {
+const ChartGraph = memo<QuestionProps>((prop) => {
   const data = {
     labels: prop.questionProp.choices,
     datasets: [
@@ -41,6 +42,6 @@ const ChartGraph = (prop: Props) => {
       <Pie data={data} />
     </div>
   );
-};
+});
 
 export default ChartGraph;

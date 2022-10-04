@@ -7,6 +7,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { memo } from "react";
 import { Bar } from "react-chartjs-2";
 import type { QuestionType } from "../../lib/realtimeDB";
 
@@ -19,11 +20,11 @@ ChartJS.register(
   Legend
 );
 
-type Prop = {
+type QuestionProps = {
   questionProp: QuestionType;
 };
 
-const BarGraph = (prop: Prop) => {
+const BarGraph = memo<QuestionProps>((prop) => {
   const options = {
     responsive: true,
     plugins: {
@@ -55,6 +56,6 @@ const BarGraph = (prop: Prop) => {
       <Bar options={options} data={data} />
     </div>
   );
-};
+});
 
 export default BarGraph;
