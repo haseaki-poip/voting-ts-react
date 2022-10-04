@@ -1,9 +1,10 @@
+import { memo } from "react";
 type ContentProps = {
   content: string;
   setContent: (content: string) => void;
 };
 
-function Content({ content, setContent }: ContentProps) {
+const Content = memo<ContentProps>(({ content, setContent }) => {
   const contentChange = (inputContent: string) => {
     if (inputContent.length < 30) setContent(inputContent);
   };
@@ -19,6 +20,6 @@ function Content({ content, setContent }: ContentProps) {
       ></textarea>
     </div>
   );
-}
+});
 
 export default Content;

@@ -1,11 +1,12 @@
 import { ChangeEvent, useState } from "react";
+import { memo } from "react";
 
 type ChoicesProps = {
   choices: string[];
   setChoices: (choices: string[]) => void;
 };
 
-function Choices({ choices, setChoices }: ChoicesProps) {
+const Choices = memo<ChoicesProps>(({ choices, setChoices }) => {
   const [boxBools, setBoxBools] = useState<Boolean[]>([
     true, //ひとつ目の選択肢は強制で表示
     false,
@@ -90,6 +91,6 @@ function Choices({ choices, setChoices }: ChoicesProps) {
       </div>
     </div>
   );
-}
+});
 
 export default Choices;
