@@ -1,9 +1,9 @@
-import { useContext } from "react";
-import { ContentContext } from "../Create";
+type ContentProps = {
+  content: string;
+  setContent: (content: string) => void;
+};
 
-function Content() {
-  const { content, setContent } = useContext(ContentContext);
-
+function Content({ content, setContent }: ContentProps) {
   const contentChange = (inputContent: string) => {
     if (inputContent.length < 30) setContent(inputContent);
   };

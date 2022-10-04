@@ -4,7 +4,7 @@ import Content from "../forms/Content";
 
 describe("Test Content Component", () => {
   test("render contentUI", async () => {
-    render(<Content />);
+    render(<Content {...{ content: "", setContent: () => {} }} />); //UIテストのためstateはダミー
     const textarea = screen.getAllByRole("textbox");
 
     expect(textarea).toHaveLength(1);
