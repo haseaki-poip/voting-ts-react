@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { ContentContext } from "../Create";
+import { memo } from "react";
+type ContentProps = {
+  content: string;
+  setContent: (content: string) => void;
+};
 
-function Content() {
-  const { content, setContent } = useContext(ContentContext);
-
+const Content = memo<ContentProps>(({ content, setContent }) => {
   const contentChange = (inputContent: string) => {
     if (inputContent.length < 30) setContent(inputContent);
   };
@@ -19,6 +20,6 @@ function Content() {
       ></textarea>
     </div>
   );
-}
+});
 
 export default Content;

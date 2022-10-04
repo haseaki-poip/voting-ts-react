@@ -1,18 +1,18 @@
 import { render, screen } from "@testing-library/react";
 import user from "@testing-library/user-event";
-import Choices from "../forms/Choices";
+import Create from "../Create";
 
 describe("Test Choices Component", () => {
   // 初期状態のtextboxの数テスト
   test("render choicesUI", async () => {
-    render(<Choices />);
+    render(<Create />);
     const textbox = screen.getAllByRole("textbox");
     expect(textbox).toHaveLength(1);
   });
 
   // +-ボタン押した時のテスト
   test("push button", async () => {
-    render(<Choices />);
+    render(<Create />);
     // プラスボタンを押した時のテスト
     const plusButton = screen.getByRole("button", { name: "+" });
     user.click(plusButton);
@@ -41,6 +41,6 @@ describe("Test Choices Component", () => {
 
   // 入力テキストの表示内容テスト
   test("confirm inputValue with button", async () => {
-    render(<Choices />);
+    render(<Create />);
   });
 });

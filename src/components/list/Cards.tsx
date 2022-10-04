@@ -3,7 +3,7 @@ import type { QuestionType } from "../../lib/realtimeDB";
 import { getAllQuestion } from "../../lib/realtimeDB";
 import Card from "./Card";
 
-function Cards() {
+const Cards = () => {
   const [allQuestion, setAllQuestion] = useState<QuestionType[]>([]);
 
   useEffect(() => {
@@ -25,6 +25,6 @@ function Cards() {
       </div>
     </div>
   );
-}
+};
 
 export default Cards;

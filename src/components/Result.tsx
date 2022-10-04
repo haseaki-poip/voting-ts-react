@@ -8,25 +8,17 @@ import { getQuestion } from "../lib/realtimeDB";
 import { rt_db } from "../firebase";
 import { ref, onValue } from "firebase/database";
 
-type ToggleContextType = {
-  toggle: boolean;
-  setToggle: (toggle: boolean) => void;
-};
 type SelectContextType = {
   selectIndex: number | null;
   setSelectIndex: (selectIndex: number | null) => void;
 };
 
-export const ToggleContext = createContext<ToggleContextType>({
-  toggle: true,
-  setToggle: (toggle) => {},
-});
 export const SelectContext = createContext<SelectContextType>({
   selectIndex: null,
   setSelectIndex: (selectIndex) => {},
 });
 
-function Result() {
+const Result = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -39,7 +31,6 @@ function Result() {
   const [graph, setGraph] = useState<JSX.Element>();
   const [vote, setVote] = useState<JSX.Element>();
 
-  const toggleValue = { toggle, setToggle }; // context用
   const selectValue = { selectIndex, setSelectIndex }; // context用
 
   // エラー時の遷移処理
@@ -105,9 +96,7 @@ function Result() {
   return (
     <div className="pt-4">
       <div className="flex justify-center sm:float-left sm:ml-10">
-        <ToggleContext.Provider value={toggleValue}>
-          <Toggle />
-        </ToggleContext.Provider>
+        <Toggle {...{ toggle: toggle, setToggle: setToggle }} />
       </div>
       <div className="mt-6 sm:mt-14 flex justify-center">{graph}</div>
       <SelectContext.Provider value={selectValue}>
@@ -115,6 +104,6 @@ function Result() {
       </SelectContext.Provider>
     </div>
   );
-}
+};
 
 export default Result;

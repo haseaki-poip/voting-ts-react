@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Header() {
+const Header = () => {
   const [display, setDisplay] = useState<boolean>(false);
 
   // Menuボタンが押された時
@@ -68,6 +68,6 @@ function Header() {
       </nav>
     </header>
   );
-}
+};
 
 export default Header;

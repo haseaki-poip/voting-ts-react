@@ -1,12 +1,14 @@
 /* eslint-disable jsx-a11y/alt-text */
-import { useContext } from "react";
+import { memo } from "react";
 import BarImg from "../../assets/Images/BarImg.png";
 import ChartImg from "../../assets/Images/ChartImg.png";
-import { ToggleContext } from "../../components/Result";
 
-function Toggle() {
-  const { toggle, setToggle } = useContext(ToggleContext);
+type ToggleProps = {
+  toggle: boolean;
+  setToggle: (toggle: boolean) => void;
+};
 
+const Toggle = memo<ToggleProps>(({ toggle, setToggle }) => {
   const toggleClass = " transform translate-x-6";
   return (
     <div className="flex flex-wrap flex-row">
@@ -27,6 +29,6 @@ function Toggle() {
       <img src={ChartImg} className="h-7 w-7 ml-3" />
     </div>
   );
-}
+});
 
 export default Toggle;
