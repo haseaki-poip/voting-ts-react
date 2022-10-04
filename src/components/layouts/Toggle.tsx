@@ -4,7 +4,7 @@ import BarImg from "../../assets/Images/BarImg.png";
 import ChartImg from "../../assets/Images/ChartImg.png";
 import { ToggleContext } from "../../components/Result";
 
-function Toggle() {
+const Toggle = () => {
   const { toggle, setToggle } = useContext(ToggleContext);
 
   const toggleClass = " transform translate-x-6";
@@ -27,6 +27,6 @@ function Toggle() {
       <img src={ChartImg} className="h-7 w-7 ml-3" />
     </div>
   );
-}
+};
 
 export default Toggle;

@@ -1,4 +1,4 @@
-function Banner() {
+const Banner = () => {
   return (
     <div className="mt-6 w-full flex justify-center">
       <div className="bg-teal-500 w-11/12 rounded-3xl">
@@ -10,6 +10,6 @@ function Banner() {
       </div>
     </div>
   );
-}
+};
 
 export default Banner;

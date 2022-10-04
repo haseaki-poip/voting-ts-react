@@ -23,7 +23,7 @@ type Prop = {
   questionProp: QuestionType;
 };
 
-function BarGraph(prop: Prop) {
+const BarGraph = (prop: Prop) => {
   const options = {
     responsive: true,
     plugins: {
@@ -55,6 +55,6 @@ function BarGraph(prop: Prop) {
       <Bar options={options} data={data} />
     </div>
   );
-}
+};
 
 export default BarGraph;

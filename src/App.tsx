@@ -5,7 +5,7 @@ import Header from "./components/layouts/Header";
 import Search from "./components/Search";
 import Create from "./components/Create";
 import Result from "./components/Result";
-function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -23,6 +23,6 @@ function App() {
       </BrowserRouter>
     </div>
   );
-}
+};
 
 export default App;

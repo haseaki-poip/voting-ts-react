@@ -1,4 +1,4 @@
-function Home() {
+const Home = () => {
   return (
     <div className="App">
       <div className="h-screen pt-64 md:pt-48 sm:px-16 bg-gradient-to-r from-teal-400 to-blue-500">
@@ -33,6 +33,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
 export default Home;

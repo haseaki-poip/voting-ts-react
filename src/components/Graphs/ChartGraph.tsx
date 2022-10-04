@@ -8,7 +8,7 @@ type Props = {
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-function ChartGraph(prop: Props) {
+const ChartGraph = (prop: Props) => {
   const data = {
     labels: prop.questionProp.choices,
     datasets: [
@@ -41,6 +41,6 @@ function ChartGraph(prop: Props) {
       <Pie data={data} />
     </div>
   );
-}
+};
 
 export default ChartGraph;

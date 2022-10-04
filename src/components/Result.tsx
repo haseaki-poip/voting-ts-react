@@ -26,7 +26,7 @@ export const SelectContext = createContext<SelectContextType>({
   setSelectIndex: (selectIndex) => {},
 });
 
-function Result() {
+const Result = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -115,6 +115,6 @@ function Result() {
       </SelectContext.Provider>
     </div>
   );
-}
+};
 
 export default Result;

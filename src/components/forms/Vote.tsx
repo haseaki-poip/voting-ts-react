@@ -7,7 +7,7 @@ type Prop = {
   questionProp: QuestionType;
 };
 
-function Vote(prop: Prop) {
+const Vote = (prop: Prop) => {
   const choices = prop.questionProp.choices;
   const content = prop.questionProp.content;
   const results = prop.questionProp.results;
@@ -80,6 +80,6 @@ function Vote(prop: Prop) {
       </div>
     </div>
   );
-}
+};
 
 export default Vote;

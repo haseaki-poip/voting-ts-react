@@ -5,7 +5,7 @@ type Props = {
   questionProp: QuestionType;
 };
 
-function Card(props: Props) {
+const Card = (props: Props) => {
   const navigate = useNavigate();
 
   const id = props.questionProp.id;
@@ -49,6 +49,6 @@ function Card(props: Props) {
       </div>
     </div>
   );
-}
+};
 
 export default Card;

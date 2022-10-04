@@ -4,7 +4,7 @@ import Choices from "./forms/Choices";
 import { createQuestion } from "../lib/realtimeDB";
 import { useNavigate } from "react-router-dom";
 
-function Create() {
+const Create = () => {
   const [content, setContent] = useState<string>("");
   const [choices, setChoices] = useState<string[]>(["", "", "", "", ""]);
   const navigate = useNavigate();
@@ -61,6 +61,6 @@ function Create() {
       </div>
     </div>
   );
-}
+};
 
 export default Create;
